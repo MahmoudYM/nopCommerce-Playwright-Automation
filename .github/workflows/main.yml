@@ -17,8 +17,8 @@ jobs:
       - name: Install dependencies
         run: npm install                # 3. نزل المكتبات (Playwright وغيره)
 
-      - name: Install Browsers
-        run: npx playwright install --with-deps # 4. نزل المتصفحات
+      - name: Install Chrome Browser
+        run: npx playwright install chromium --with-deps # 4. نزل المتصفحات
 
       - name: Run Tests
         run: npx playwright test        # 5. شغل الاختبارات يا بطل
