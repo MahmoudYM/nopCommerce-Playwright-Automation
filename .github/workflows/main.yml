@@ -1,15 +1,31 @@
-name: Automation Tests
-
+name: Playwright Tests
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]  # اشتغل لما أرفع كود
+  workflow_dispatch:     # خليني أشغلك بإيدي (الزرار الأزرق)
 
 jobs:
-  test:
+  automation-tests:      # اسم المهمة
     runs-on: ubuntu-latest
-
+    
     steps:
-      - uses: actions/checkout@v3
-      - name: Run tests
-        run: echo "Tests running..."
+      - uses: actions/checkout@v4       # 1. افتح الفولدر بتاعي عندك
+      - uses: actions/setup-node@v4      # 2. جهز برنامج Node.js
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install                # 3. نزل المكتبات (Playwright وغيره)
+
+      - name: Install Browsers
+        run: npx playwright install --with-deps # 4. نزل المتصفحات
+
+      - name: Run Tests
+        run: npx playwright test        # 5. شغل الاختبارات يا بطل
+
+      - name: Save Report
+        if: always()                    # 6. حتى لو التست فشل، سيف التقرير
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-report
+          path: playwright-report/
