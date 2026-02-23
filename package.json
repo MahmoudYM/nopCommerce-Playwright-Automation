@@ -1,11 +1,35 @@
 {
-  "name": "nopcommerceplaywright",
+  "name": "nopcommerce-playwright-tests",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "E2E test automation for nopCommerce demo using Playwright with Page Object Model",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "test:chrome": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox"
   },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "pom",
+    "e2e"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.10.0"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "playwright": "^1.58.2",
+    "playwright-core": "^1.58.2",
+    "undici-types": "^6.21.0"
+  }
 }
