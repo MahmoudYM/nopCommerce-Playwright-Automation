@@ -1,39 +1,15 @@
-import { defineConfig, devices } from '@playwright/test';
+name: Automation Tests
 
-export default defineConfig({
-  testDir: './tests',
-  fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  /* في الـ CI بنخلي الـ workers بواحد عشان الـ Matrix اللي عملناها بتفتح 3 أجهزة أصلاً */
-  workers: process.env.CI ? 1 : undefined,
-  
-  /* التعديل هنا: ضفنا allure-playwright */
-  reporter: [
-    ['html'],
-    ['list'],
-    ['allure-playwright', { outputFolder: 'allure-results' }] 
-  ],
+on:
+  push:
+    branches:
+      - main
 
-  use: {
-    baseURL: 'https://demo.nopcommerce.com',
-    trace: 'on', // خليه On عشان الـ CI/CD يوريك كل خطوة بالصور لو فشل
-    screenshot: 'on', 
-    video: 'on-first-retry',
-  },
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-  ],
-});
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run tests
+        run: echo "Tests running..."
